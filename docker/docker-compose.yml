@@ -1,0 +1,44 @@
+version: "3.7"
+
+services:
+
+  proxy:
+    image: nginx:mainline-alpine3.18-slim
+    ports:
+    - 8080:80
+    volumes:
+    - ../:/var/www/myapp
+    - ./site.conf:/etc/nginx/conf.d/site.conf
+    depends_on:
+    - php
+    - db
+
+  php:
+    image: php:8.2.12-fpm-alpine3.18
+    depends_on:
+    - db
+    
+  pgdb:
+    image: postgres
+    restart: always
+    environment:
+      POSTGRES_USER: root
+      POSTGRES_PASSWORD: root
+      POSTGRES_DB: fittrack
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdb-data:/var/lib/postgresql/data
+      - ./psql_init:/docker-entrypoint-initdb.d
+  
+  pgadmin:
+    container_name: pgadmin4_container
+    image: dpage/pgadmin4
+    restart: always
+    environment:
+      PGADMIN_DEFAULT_EMAIL: admin@admin.com
+      PGADMIN_DEFAULT_PASSWORD: root
+    ports:
+      - "5050:80"
+volumes:
+  pgdb-data:

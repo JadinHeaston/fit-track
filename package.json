@@ -1,0 +1,16 @@
+{
+	"dependencies": {
+		"@types/datatables.net": "^1.10.26",
+		"@types/jquery": "^3.5.25",
+		"@types/select2": "^4.0.60"
+	},
+	"name": "fittrack",
+	"description": "A simple Fitness Tracker.",
+	"version": "0.0.0",
+	"main": "index.php",
+	"scripts": {
+		"test": "echo \"Error: no test specified\" && exit 1"
+	},
+	"author": "Jadin Heaston",
+	"license": "MIT"
+}
